@@ -9,6 +9,18 @@ from selenium.common.exceptions import TimeoutException
 from pprint import pprint
 import time 
 
+def dbON():
+    return 0
+
+def dbSQL(sql):
+    return 0
+
+def dbOFF():
+    return 0
+
+driver = webdriver.Chrome('./chromedriver')
+tw = []
+
 def waitUntilReady(driver, delay, by, value_by):
     try:
         myElem = WebDriverWait(driver, delay).until(EC.presence_of_element_located((by, value_by)))
@@ -16,13 +28,23 @@ def waitUntilReady(driver, delay, by, value_by):
     except TimeoutException:
         print("Loading took too much time!")
 
-driver = webdriver.Chrome('./chromedriver')
-#PATH = "C:\\Data\\Universidad\\twitterselenium\\chromedriver.exe"
-#driver = webdriver.Chrome(PATH)
+def index(user):
+    driver.get("https://twitter.com/" + user)
+    waitUntilReady(driver, 5, By.CSS_SELECTOR, "div[data-testid=cellInnerDiv]")
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    elements = driver.find_elements(By.CSS_SELECTOR, "div[data-testid=cellInnerDiv]")
+    pprint(elements)
+    setTW(elements)
 
-driver.get("https://twitter.com/AlvaroUribeVel")
-waitUntilReady(driver, 5, By.CSS_SELECTOR, "div[data-testid=cellInnerDiv]")
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-elements = driver.find_elements(By.CSS_SELECTOR, "div[data-testid=cellInnerDiv]")
-pprint(elements)
+def optenerTextDelTweet(e):
+    text = ""
+    return text
+
+def setTW(elements):
+    for e in elements:
+        tw.append(
+            optenerTextDelTweet(e)
+        )
+
 #driver.close()
+index("@Minecraft")
