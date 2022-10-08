@@ -36,6 +36,10 @@ def index(user):
     pprint(elements)
     setTW(elements)
 
+def updateTable():
+    sql = "INSERT INTO tw (nom, user, text, date) VALUES "
+    values = ""
+
 def optenerTextDelTweet(e):
     text = ""
     return text
